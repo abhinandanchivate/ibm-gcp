@@ -1,0 +1,27 @@
+export BUCKET_NAME="${PROJECT_ID}-dataflow-bucket"
+
+gsutil mb -l us-central1 gs://user01-479408-dataflow-bucket
+# Create folders
+gsutil mkdir gs://user01-479408-dataflow-bucket/staging
+gsutil mkdir gs://user01-479408-dataflow-bucket/temp
+gsutil mkdir gs://user01-479408-dataflow-bucket/input
+gsutil mkdir gs://user01-479408-dataflow-bucket/output
+
+
+gsutil cp sample.txt user01-479408-dataflow-bucket/input
+
+python wordcount.py --input gs://user01-479408-dataflow-bucket/input/sample.txt --output  gs://user01-479408-dataflow-bucket/output/local-counts --runner DirectRunner
+
+
+
+py wordcount.py --input gs://user01-479408-dataflow-bucket/input/sample.txt --output gs://user01-479408-dataflow-bucket/output/dataflow-counts --runner DataflowRunner --project student-00356 --region us-central1 --temp_locationgs://user01-479408-dataflow-bucket/temp --staging_location gs://user01-479408-dataflow-bucket/
+
+
+
+
+py -3.10 wordcount.py --runner DataflowRunner --project user01-479408 --region us-central1 --input gs://user01-479408-dataflow-bucket/input/sample.txt --output gs://user01-479408-dataflow-bucket/output/out --staging_location=gs://user01-479408-dataflow-bucket/staging --temp_location=gs://user01-479408-dataflow-bucket/temp
+
+
+py -3.10 wordcount.py   --runner DataflowRunner --project user01-479408 --region us-central1 --input gs://user01-479408-dataflow-bucket/input/sample.txt --output gs://user01-479408-dataflow-bucket/output/out --staging_location=gs://user01-479408-dataflow-bucket/staging --temp_location=gs://user01-479408-dataflow-bucket/temp
+
+

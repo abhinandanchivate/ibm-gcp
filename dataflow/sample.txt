@@ -1,0 +1,6 @@
+hello world
+hello dataflow
+apache beam is powerful
+google cloud platform
+dataflow processing
+EOF
